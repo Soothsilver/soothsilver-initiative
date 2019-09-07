@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sit.ManualEntryPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <ListView x:Name="ManualEntryList" RowHeight="150">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame BorderColor="Black">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Name}" VerticalTextAlignment="Center" FontSize="30" />
+                                    <Entry Text="{Binding TargetInitiative, Mode=OneWayToSource}"
+                                           Placeholder="{Binding Initiative, Mode=OneTime}"
+                                           Margin="20,0,0,0"
+                                           HorizontalTextAlignment="Center"
+                                           FontSize="30"
+                                           VerticalOptions="CenterAndExpand"
+                                           HorizontalOptions="FillAndExpand"
+                                           Keyboard="{x:Static Keyboard.Numeric}" />
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Confirm" HorizontalOptions="FillAndExpand" Clicked="Button_Clicked" HeightRequest="200" />
+                <Button Text="Cancel" Clicked="Button_Clicked_1" HeightRequest="200" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

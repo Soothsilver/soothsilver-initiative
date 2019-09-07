@@ -1,14 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Sit"
+             xmlns:local="clr-namespace:Sit"             
              x:Class="Sit.MainPage">
 
     <StackLayout>
+        <ListView x:Name="MasterList" RowHeight="150">
+            <ListView.ItemsSource>
+                <x:Array Type="{x:Type local:Creature}">
+                    <local:Creature Name="Moldath"></local:Creature>
+                    <local:Creature Name="Gnome Bard" Friendly="True"></local:Creature>
+                </x:Array>
+            </ListView.ItemsSource>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Kill" IsDestructive="True" Command="{Binding KillCommand}" />
+                        </ViewCell.ContextActions>
+                        <Frame Padding="0" Margin="0" BackgroundColor="{Binding ActiveBackground}" CornerRadius="0">
+                            <Frame BorderColor="Green" CornerRadius="10" Margin="10" BackgroundColor="{Binding BackgroundColor}">
+                                <Grid Padding="10,10,10,10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding Name}"
+                                       
+                                           VerticalTextAlignment="Center" TextColor="Black" FontAttributes="Bold" FontSize="35">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding TapNameCommand}" ></TapGestureRecognizer>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <StackLayout Orientation="Horizontal" Grid.Column="1">
+                                        <Label Text="{Binding Initiative}" TextColor="Black" FontSize="25" VerticalTextAlignment="Center" Margin="0,0,15,0" />
+                                        <Button Text="Up" Command="{Binding UpCommand}" />
+                                        <Button Text="Down" Command="{Binding DownCommand}" />
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+            <Button Text="&lt;" HeightRequest="100" WidthRequest="100" HorizontalOptions="FillAndExpand" Clicked="Left_Clicked" />
+            <Button Text="&gt;" WidthRequest="100" HorizontalOptions="FillAndExpand" Clicked="Right_Clicked" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Add a hero" WidthRequest="200" Clicked="AddHero_Clicked" />
+            <Button Text="Add monster" WidthRequest="200" Clicked="AddMonster_Clicked" />
+            <Button Text="Undo" Clicked="Undo_Clicked" />
+            <Button Text="Redo" Clicked="Redo_Clicked" />
+            <Button Text="Enter initiatives" Clicked="EnterInitiatives_Clicked" />
+        </StackLayout>
     </StackLayout>
 
 </ContentPage>
